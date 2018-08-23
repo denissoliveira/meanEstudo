@@ -7,7 +7,8 @@ app.use(express.static('./public'));
 app.use(bodyParser.json());
 
 consign({ cwd : 'app'}) //diretorio de trabalho atual
-    .include('api')
+    .include('models')
+    .then('api')
     .then('routes')
     .into(app);
 

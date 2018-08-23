@@ -1,5 +1,7 @@
+var mongoose = require('mongoose');
 var api = {};
-var contador = 8;
+
+/*var contador = 8;
 
 var fotos = [
     {_id: 1, titulo: 'Leão', url:'http://www.fundosanimais.com/Minis/leoes.jpg' },
@@ -10,35 +12,40 @@ var fotos = [
     {_id: 6, titulo: 'Leões', url:'http://www.fundosanimais.com/Minis/fotos-leoes.jpg' },
     {_id: 7, titulo: 'Aguia 2', url:'http://www.fundosanimais.com/Minis/aterragem-aguia.jpg' },
     {_id: 8, titulo: 'Aguia 3', url:'http://www.fundosanimais.com/Minis/aguia-cacar.jpg' }
-];
+];*/
 
 api.lista = function(req , res) {
-    res.json(fotos);
+    var model = mongoose.model('Foto');
+    model.find(function(){
+        
+    });
+    /*res.json(fotos);*/
 }
 
 api.buscaPorId = function(req, res){
-    var foto = fotos.find(function(){
+    /*var foto = fotos.find(function(){
         return fotos._id = req.params.id;
     });
-    res.json(foto);
+    res.json(foto);*/
 };
 
 api.removePorId = function(req, res){
-    fotos.filter(function(foto){
+    /*fotos.filter(function(foto){
         return foto._id != req.params.id;
     });
-    res.sendStatus(204);
+    res.sendStatus(204);*/
 };
 
 api.adiciona = function(req, res){
-    var foto = req.body;
+    /*var foto = req.body;
     foto._id = ++contador;
     fotos.push(foto);
-    res.json(foto);
+    res.json(foto);*/
 };
 
+
 api.atualiza = function(req, res){
-    var foto = req.body;
+    /*var foto = req.body;
     var fotoId = req.params.id;
 
     var indice = fotos.findIndex(foto => {
@@ -47,7 +54,7 @@ api.atualiza = function(req, res){
 
     fotos[indice] = foto;
 
-    res.sendStatus(200);
+    res.sendStatus(200);*/
 };
 
 module.exports = api;
