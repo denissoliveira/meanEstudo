@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var api = {};
 
+var model = mongoose.model('Foto');
+
 /*var contador = 8;
 
 var fotos = [
@@ -15,14 +17,28 @@ var fotos = [
 ];*/
 
 api.lista = function(req , res) {
-    var model = mongoose.model('Foto');
-    model.find(function(){
-        
-    });
+    model
+        .find({})
+        .then(fotos => {
+            res.json(fotos);
+        }, error => {
+            console.log(error);
+            res.status(500).json(fotos);
+        });
     /*res.json(fotos);*/
 }
 
 api.buscaPorId = function(req, res){
+    model  
+        .findById(req.params.id)
+        .then(foto => {
+            console.log(foto);
+            if(!foto) throw Error('Foto não encontrada');
+            res.json(foto);
+        }, error => {
+            console.log(error);
+            res.status(404).json(error);
+        });
     /*var foto = fotos.find(function(){
         return fotos._id = req.params.id;
     });
@@ -30,6 +46,15 @@ api.buscaPorId = function(req, res){
 };
 
 api.removePorId = function(req, res){
+    model
+        .remove({_id: req.params.id})
+        .then(function(){
+            res.sendStatus(204);
+        },error => {
+            console.log(error);
+            res.status(500).json(error);
+        });
+
     /*fotos.filter(function(foto){
         return foto._id != req.params.id;
     });
@@ -37,6 +62,15 @@ api.removePorId = function(req, res){
 };
 
 api.adiciona = function(req, res){
+    model
+        .create(req.body)
+        .then(foto => {
+            res.json(foto);
+        },error => {
+            console.log(error);
+            res.status(500).json(error);
+        });
+
     /*var foto = req.body;
     foto._id = ++contador;
     fotos.push(foto);
@@ -45,6 +79,15 @@ api.adiciona = function(req, res){
 
 
 api.atualiza = function(req, res){
+    model
+        .findByIdAndUpdate()
+        .then(foto => {
+            console.log(foto);
+            res.json(foto);
+        },error => {
+            console.log(error);
+            res.status(500).json(error);
+        });
     /*var foto = req.body;
     var fotoId = req.params.id;
 
